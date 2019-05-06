@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { GithubService } from '../github.service';
-import 'rxjs/add/operator/map';
 
 @Component({
   selector: 'app-profile',
@@ -11,12 +10,12 @@ export class ProfileComponent implements OnInit {
   user: any = [];
   repos: any = [];
   username: string;
-  constructor(private _githubService: GithubService) {
-    this._githubService.getUser().subscribe(user => {
+  constructor(private githubService: GithubService) {
+    this.githubService.getUser().subscribe(user => {
       console.log(user);
       this.user = user;
     });
-    this._githubService.getRepos().subscribe(repos => {
+    this.githubService.getRepos().subscribe(repos => {
       // console.log(user);
       this.repos = repos;
     });
@@ -24,12 +23,12 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
   }
   searchUser() {
-    this._githubService.updateUser(this.username);
-    this._githubService.getUser().subscribe(user => {
+    this.githubService.updateUser(this.username);
+    this.githubService.getUser().subscribe(user => {
       this.user = user;
     });
     // Console.log('It works');
-    this._githubService.getRepos().subscribe(repos => {
+    this.githubService.getRepos().subscribe(repos => {
       // Console.log(user);
       this.repos = repos;
     });
